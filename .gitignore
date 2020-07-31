@@ -1,0 +1,9 @@
+*.sh
+credentials.yml
+*.tgz
+relocated.json
+az-relocated.json
+install.sh
+harbor*
+.ipynb_checkpoints/
+demo-apps/

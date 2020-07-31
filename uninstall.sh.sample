@@ -1,0 +1,8 @@
+#!/bin/bash
+set -xe
+
+INSTALL_NAME="SNIP"
+RELOCATION_JSON_FILE="relocated.json"
+
+duffle uninstall ${INSTALL_NAME} -c credentials.yml  \
+    -m ${RELOCATION_JSON_FILE}

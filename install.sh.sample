@@ -1,0 +1,23 @@
+#!/bin/bash
+set -xe
+
+TBS_PATH="PATH-TO-TBS.tgz" # /tmp/build-service-0.2.0.tgz
+REPO_HOSTNAME="REPO-HOSTNAME" # REPO
+TBS_REPO_BASEPATH="TBS-REPO-PATH" # REPO/tbs
+TBS_REPO_PATH="TBS-REPO-PATH" # REPO/tbs/build-service
+K8S_CLUSTER_NAME="YOUR-CLUSTER-CONTEXT" # demo-cluster
+REPO_USERNAME="SNIP"
+REPO_PASSWORD="SNIP"
+TBS_REPO_DEFAULT_BUILDER_PATH="TBS-REPO-PATH" # REPO/tbs/default-builder 
+
+duffle relocate -f $TBS_PATH -m relocated.json -p $REPO_HOSTNAME/$TBS_REPO_PATH
+
+duffle install tbs-0.2.0 -c credentials.yml  \
+    --set kubernetes_env="${K8S_CLUSTER_NAME}" \
+    --set docker_registry="${REPO_HOSTNAME}" \
+    --set docker_repository="${TBS_REPO_BASEPATH}" \
+    --set registry_username="${REPO_USERNAME}" \
+    --set registry_password="${REPO_PASSWORD}" \
+    --set custom_builder_image="${TBS_REPO_DEFAULT_BUILDER_PATH}" \
+    -f "${TBS_PATH}" \
+    -m relocated.json
